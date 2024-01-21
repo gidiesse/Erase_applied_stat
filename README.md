@@ -25,40 +25,38 @@ Files used here: ```data/erase_metadata.csv```
 2. **genome_eda**: in this script we began to explore the PCA scores. In particular we explored the relations between the first three scores, also differentiating between modern and ancient samples and by main ancestry. 
 Files used here: ```/data/snp/adna_pca_newiid_2convertV3.bed```, ```data/PCA/adna_pca_newiid_2convertV3_100.evec```, ```data/PCA/adna_pca_newiid_2convertV3_100.eval```
 
-3. **individuals_deconvolution**: In this script we explored different ways of assigning ancestries to individuals who didn't have one (6513 of the 6580 individuals in our dataset do not have an ancestry assigned). We tried three different approaches. The first 2 were Gaussian Mixture Models and a C-means clustering (having such few samples with labeled ancestries - only 67 out of 6580 - we needed to use unsupervised methods). The code for this is at the end of the file but since both of these had disastrous results, they were quickly abandoned. 
-Our last idea was to do a sort of deconvolution. Essentially we divided the 67 individuals into their 
-own respective ancestries. We then computed the mean of the pca scores for each ancestry resulting 
-into 5 individuals that were the "representatives" of their ancestry. These would be our centroids. 
+3. **individuals_deconvolution**: In this script we explored different ways of creating a representation for the individuals based on their genetic composition. By exploiting the individuals with an assigned ancestry, we built a compositional representation for each individuals. We tried using Gaussian Mixture Models and a C-means clustering. Both of these methods did not give us good results and they were quickly abandoned. 
+The method we used is the following: we computed the mean of the pca scores for each of the 5 ancestries, based on the labelled indivisuals, resulting in 5 individuals that were the "representatives" of their ancestry. These would be our centroids. 
 After that, we took the remaining 6513 individuals without an ancestry and computed the cosine similarity
 between their PCA scores and the PCA scores of each of the 5 "centroid" individuals. We then used a 
 softmax to normalize the similarity scores so that now each individual had 5 scores all between 0 and 1
 which summed to 1 - essentially each score represented how much the individual belonged to each ancestry. 
-We then assigned each individual to the ancestry that had the biggest score. This approach worked rather 
-well. In fact of the 67 individuals that already had ancestry labels, using this method 66 were assigned 
-corrrectly.
-Files used here: "data/PCA/adna_pca_newiid_2convertV3_100.evec", "data/erase_metadata_interpolated.csv"
-Output: "./corr_convolution.csv" this is a file where we take "data/erase_metadata_interpolated.csv" and add 6 additional columns: one for each ancestry containing a value between 0 and 1 denoting how much that individual "belongs" to the specific ancestry and one last one containing a number from 1 to 5 which says which ancestry we've assigned the individual to (1 - WHG, 2-EHG, 3-Anatolia_N, 4-CHG, 5-North_Africa). 
+In this way we performed a deconvolution of the individuals based on the ancestry, obtaining compositional data for each individual.
+Files used here: ```data/PCA/adna_pca_newiid_2convertV3_100.evec```, ```data/erase_metadata_interpolated.csv```
+Output: ```./corr_convolution.csv``` this is a file where we take ```data/erase_metadata_interpolated.csv``` and add 6 additional columns: one for each ancestry containing a value between 0 and 1 denoting how much that individual "belongs" to the specific ancestry and one last one containing a number from 1 to 5 which says which ancestry we've assigned the individual to based on the highest score of the composition (1 - WHG, 2-EHG, 3-Anatolia_N, 4-CHG, 5-North_Africa). 
 
-4. geo_comp: This is the file where we use spatial statistics.  The crux of our project is understanding how main ancestry evolved in the different macroareas over time. The challenge was that during the deconvolution (previous R script) we generated compositional data, by adding the constraint that the values had to sum to 1 we lost a degree of freedom and as such are no longer in a Euclidean space and couldn't use any of the statistical methods we saw in class as in class we always oeprated under the assumption of being in a Euclidean space.
-As a result, we performed an ILR transformation of our compositional data and that brought us back into a Euclidean space. We then performed another PCA to find a 4-dimensional orthonormal basis. We then performed our geospatial analysis and finally used the inverse ILR transformation to go back to our starting space where we could then interpret the results.
-Files used here: "./corr_convolution.csv"
-Output: "data/comp_time_space.csv" this is a file that contains the result of the spatial statistics analysis for each Macro_Area and Macro_Period which is calculated by taking the mean for each individual that belongs to that Macro_Area and Macro_Period (NOT A GOOD EXPLANATION).
+4. ***geo_comp***: This is the file where we fit spatial statistic models. The aim of our project is understanding how main ancestry evolved in the different macroareas over time. The compositional data we obtained belongs to the Aitchison Simplex, a constrained space with **n - 1 ** degrees of freedom (where **n** is the number of components in the mixture). 
+We performed a CLR transformation to map the data back into a Euclidean space, then a PCA to find an orthonormal basis. In this space we carried out the geospatial analysis and finally used the inverse ILR transformation to go back to the  Aitchison Simplex, where it's possible to interpret the data as a composition. 
+Files used here: ```./corr_convolution.csv```
+Output: ```data/comp_time_space.csv``` this is a file that contains the result of the spatial statistics analysis; for each Macro_Area and Macro_Period the mean coefficients of the linear geospatial model is reported, resulting in a symbolic composition for an individual that lived in a specific Macro_Area and Macro_Period.
 
-5. many_plots: This is the file where we made most of the plots used to represent our data on the poster
-Files used here: "./corr_convolution.csv"
+5. **many_plots**: This is the file where we made most of the plots used to represent our data on the poster
+Files used here: ```./corr_convolution.csv```
 
-6. world_plots: This is the file we used to make the plots where we plotted our observations on top of maps from google maps
-Files used here: "./corr_convolution.csv"
+6. **world_plots**: This is the file we used to make the plots where we plotted our observations on top of maps from google maps
+Files used here: ```./corr_convolution.csv```
 
-Conclusion:
-We came to 2 main conslusions: 
-1) ERASE or how individuals composition flattened over time: we noticed that as time increased the genetic composition of the individuals followed a general trend of flattening - with the predominance of different ancestries gradually decreasing. This was particularly prominent in areas with strong migration pattens eg Western Europe and much less prominent in isolated areas eg Sicily or Sardinia. We believe that this is due to an elevated mixture among individuals from different ancestries that crossed paths at different points in history.
-2) MIGRATION - CHG takes over Eurasia: We chose to focus specifically on the CHG (Caucasus Hunter Gatherer) ancestry, which was predominant in the region sorrounding the Caucasus. In the Neolithic, this ancestry was not very present in Eurasia and in fact was the perdominant ancestry in just one macroarea (Eastern Europe, where the Caucasus region is situated geographically). There was a very significant shift in the CHG composition during the Bronze Age, suggesting a high level of mixture between the CHG poplation and the other populations present in Europe. By the Classical Age, CHG was the prominent ancestry in six of our macroareas (out of twelve), showing a very significant expansion. Notably, even in the islands, which we saw were the most resistant to change in composition, CHG increased from 10-15% to 20-25% by the modern age.
+## Conclusion:
+We came to 2 main conclusions: 
+1. We noticed that as time increased the genetic composition of the individuals followed a general trend of flattening - with the predominance of different ancestries gradually decreasing. This was particularly prominent in areas with strong migration pattens eg Western Europe and much less prominent in isolated areas eg Sicily or Sardinia. We believe that this is due to an elevated mixture among individuals from different ancestries that crossed paths at different points in history.
+2. We chose to focus specifically on the CHG (Caucasus Hunter Gatherer) ancestry, which was predominant in the region sorrounding the Caucasus. In the Neolithic, this ancestry was not very present in Eurasia and in fact was the perdominant ancestry in just one macroarea (Eastern Europe, where the Caucasus region is situated geographically). There was a very significant shift in the CHG composition during the Bronze Age, suggesting a high level of mixture between the CHG poplation and the other populations present in Europe. By the Classical Age, CHG was the prominent ancestry in six of our macroareas (out of twelve), showing a very significant expansion. Notably, even in the islands, which we saw were the most resistant to change in composition, CHG increased from 10-15% to 20-25% by the modern age.
 
-Final notes: 
-- in the Plots folder, the plots from each script (except for scripts 5 and 6 which were exclusively made to generate plots and so it would have been counter-intuitive to save each plot) have been saved for easier access
-- Two animations were made to showcase 1) which was the predominant ancestry in each Macro_Area in each era (https://www.youtube.com/watch?v=xGQ-XL5xd68) and 2) how CHG composition changed in each Macro_Area over the different eras (https://www.youtube.com/watch?v=VSL53vpeXYM)
-- The link to the pdf of our poster is: https://drive.google.com/drive/folders/1iPBIb2cv1xdwvPw2e0haM4TqVpg7U6SS
+## Final notes: 
+- In the Plots folder, the plots from each script (except for scripts 5 and 6 which were exclusively made to generate plots and so it would have been counter-intuitive to save each plot) have been saved for easier access
+- Two animations were made to showcase:
+     1. Which was the predominant ancestry in each Macro_Area over time [youtube link](https://www.youtube.com/watch?v=xGQ-XL5xd68)
+     2. How CHG composition changed in each Macro_Area over time [youtube link](https://www.youtube.com/watch?v=VSL53vpeXYM)
+- The link to the pdf of our [poster](https://drive.google.com/drive/folders/1iPBIb2cv1xdwvPw2e0haM4TqVpg7U6SS)
 
 
 
