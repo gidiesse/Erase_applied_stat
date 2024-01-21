@@ -1,0 +1,1 @@
+# Erase_applied_stat
