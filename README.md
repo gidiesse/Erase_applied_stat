@@ -1,5 +1,5 @@
 # ERASE 
-Erase was a project developed in collaboration with Human Technopole for the Applied Statistics course (A.Y. 2022/2023) at Politecnico di Milano. The project was supervised by doctor Michela Massi and Doctor Alessandro Ravenae. 
+Erase was a project developed in collaboration with Human Technopole for the Applied Statistics course (A.Y. 2022/2023) at Politecnico di Milano. The project was supervised by Doctor Michela Massi and Doctor Alessandro Ravenae. 
 
 ## Project Aim:
 Recent research in archaegenomics (the combination of genetics and archeology) has revealed that modern-day Europeans carry genetic contributions from five main ancestral sources: Western European Hunter-Gatherers (WHG), Eastern European Hunter-Gatherers (EHG), Caucauses Hunter-Gatheres (CHG), Anatolian Neolithic farmers (Anatolia_N) and, in some cases, North African populations (North_Africa) (predominantly found in Southern Europe). The objectives of this study were two-fold:  
@@ -26,7 +26,7 @@ Files used here: ```data/erase_metadata.csv```
 Files used here: ```/data/snp/adna_pca_newiid_2convertV3.bed```, ```data/PCA/adna_pca_newiid_2convertV3_100.evec```, ```data/PCA/adna_pca_newiid_2convertV3_100.eval```
 
 3. **individuals_deconvolution**: In this script we explored different ways of creating a representation for the individuals based on their genetic composition. By exploiting the individuals with an assigned ancestry, we built a compositional representation for each individuals. We tried using Gaussian Mixture Models and a C-means clustering. Both of these methods did not give us good results and they were quickly abandoned. 
-The method we used is the following: we computed the mean of the pca scores for each of the 5 ancestries, based on the labelled indivisuals, resulting in 5 individuals that were the "representatives" of their ancestry. These would be our centroids. 
+The method we used is the following: we computed the mean of the pca scores for each of the 5 ancestries, based on the labelled individuals, resulting in 5 individuals that were the "representatives" of their ancestry. These would be our centroids. 
 After that, we took the remaining 6513 individuals without an ancestry and computed the cosine similarity
 between their PCA scores and the PCA scores of each of the 5 "centroid" individuals. We then used a 
 softmax to normalize the similarity scores so that now each individual had 5 scores all between 0 and 1
