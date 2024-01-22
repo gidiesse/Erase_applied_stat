@@ -56,7 +56,7 @@ We came to 2 main conclusions:
 - Two animations were made to showcase:
      1. Which was the predominant ancestry in each Macro_Area over time [youtube link](https://www.youtube.com/watch?v=xGQ-XL5xd68)
      2. How CHG composition changed in each Macro_Area over time [youtube link](https://www.youtube.com/watch?v=VSL53vpeXYM)
-- The link to the pdf of our [poster]([https://drive.google.com/drive/folders/1iPBIb2cv1xdwvPw2e0haM4TqVpg7U6SS](https://www.dropbox.com/scl/fi/0gbapieyx1j0i9q8etmwu/APPLIED-STATISTICS-FINAL-84.1-118.9cm.pdf?rlkey=316mg3jez6vws31b9vejmb3xv&dl=0)https://www.dropbox.com/scl/fi/0gbapieyx1j0i9q8etmwu/APPLIED-STATISTICS-FINAL-84.1-118.9cm.pdf?rlkey=316mg3jez6vws31b9vejmb3xv&dl=0)
+- The link to the pdf of our [poster]([https://drive.google.com/drive/folders/1iPBIb2cv1xdwvPw2e0haM4TqVpg7U6SS](https://www.dropbox.com/scl/fi/0gbapieyx1j0i9q8etmwu/APPLIED-STATISTICS-FINAL-84.1-118.9cm.pdf?rlkey=316mg3jez6vws31b9vejmb3xv&dl=0)https://www.dropbox.com/scl/fi/0gbapieyx1j0i9q8etmwu/APPLIED-STATISTICS-FINAL-84.1-118.9cm.pdf?rlkey=316mg3jez6vws31b9vejmb3xv&dl=0])
 
 
 
