@@ -1,5 +1,10 @@
-# This is our first file in which we begin to look at the metadata, do an analysis of the NAs (where are they,
-# how many are they etc.) and come up with some ideas on how we can interpolate some of the NAs
+# Exploratory Analysis: this is the preliminary investigation into the Metadata. 
+# We were particularly interested in figuring out where our NAs lay and if there
+# was any way to interpolate them. We noticed that the features date and M
+# acro_Period were linked and also that the features Macroarea and lat_num,
+# lat_long were linked so we thought that for individuals where only one of the 
+# features in the pair was missing we could use the other to interpolate it.
+
 
 ### SET WD AND LOAD USED PACKAGES ###
 setwd("~/Desktop/ERASE_project2023_desgrp")

@@ -1,13 +1,12 @@
-# This is the file where we use spatial statistics.  The crux of our project is understanding 
-# how main ancestry evolved in the different macroareas over time. 
-# The challenge was that during the deconvolution (previous R script) we generated compositional data,
-# by adding the constraint that the values had to sum to 1 we lost a degree of freedom and as such are
-# no longer in a Euclidean space and couldn't use any of the statistical methods we saw in class as
-# in class we always oeprated under the assumption of being in a Euclidean space. 
-# As a result, we performed an ILR transformation of our compositional data and that brought us back 
-# into a Euclidean space. We then performed another PCA to find a 4-dimensional orthonormal basis. 
-# We then performed our geospatial analysis and finally used the inverse ILR transformation to go 
-# back to our starting space where we could then interpret the results. 
+# geo_comp: This is the file where we fit spatial statistic models. The aim of 
+# our project is understanding how main ancestry evolved in the different 
+# macroareas over time. The compositional data we obtained belongs to the 
+# Aitchison Simplex, a constrained space with **n - 1 ** degrees of freedom 
+# (where n is the number of components in the mixture). We performed a CLR 
+# transformation to map the data back into a Euclidean space, then a PCA to find 
+# an orthonormal basis. In this space we carried out the geospatial analysis and 
+# finally used the inverse ILR transformation to go back to the Aitchison 
+# Simplex, where it's possible to interpret the data as a composition. 
 
 ## Load spatial packages
 library(sp)           ## Data management

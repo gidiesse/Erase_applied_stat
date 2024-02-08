@@ -1,6 +1,6 @@
-# In this file we explore the PCA scores. In particular we have plotted the relations between the first 
-# 3 scores both in general and later on differentiating between modern and ancient samples and also 
-# differentiating by main ancestry
+# genome_eda: in this script we began to explore the PCA scores. In particular 
+# we explored the relations between the first three scores, also differentiating 
+# between modern and ancient samples and by main ancestry. 
 
 # Libraries and wd 
 library(bigsnpr) # for loading bed bim fam files

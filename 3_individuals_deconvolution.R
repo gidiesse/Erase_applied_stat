@@ -1,18 +1,20 @@
-# In this file we explored different ways of assigning ancestries to individuals who didn't have one 
-# (6513 of the 6580 individuals in our dataset do not have an ancestry assigned)
-# We tried three different approaches. The first 2 were Gaussian Mixture Models and a C-means clustering
-# (having such few samples with labeled ancestries - only 67 out of 6580 - we needed to use 
-# unsupervised methods). Both of these had disastrous results and so were quickly abandoned. 
-# Our last idea was to do a sort of deconvolution. Essentially we divided the 67 individuals into their 
-# own respective ancestries. We then computed the mean of the pca scores for each ancestry resulting 
-# into 5 individuals that were the "representatives" of their ancestry. These would be our centroids. 
-# After that, we took the remaining 6513 individuals without an ancestry and computed the cosine similarity
-# between their PCA scores and the PCA scores of each of the 5 "centroid" individuals. We then used a 
-# softmax to normalize the similarity scores so that now each individual had 5 scores all between 0 and 1
-# which summed to 1 - essentially each score represented how much the individual belonged to each ancestry. 
-# We then assigned each individual to the ancestry that had the biggest score. This approach worked rather 
-# well. In fact of the 67 individuals that already had ancestry labels, using this method 66 were assigned 
-# corrrectly. 
+# ndividuals_deconvolution: In this script we explored different ways of 
+# creating a representation for the individuals based on their genetic 
+# composition. By exploiting the individuals with an assigned ancestry, we built 
+# a compositional representation for each individuals. We tried using Gaussian 
+# Mixture Models and a C-means clustering. Both of these methods did not give us 
+# good results and they were quickly abandoned. The method we used is the 
+# following: we computed the mean of the pca scores for each of the 5 ancestries, 
+# based on the labelled individuals, resulting in 5 individuals that were the 
+# "representatives" of their ancestry. These would be our centroids. After that, 
+# we took the remaining 6513 individuals without an ancestry and computed the 
+# cosine similarity between their PCA scores and the PCA scores of each of the 5 
+# "centroid" individuals. We then used a softmax to normalize the similarity
+# scores so that now each individual had 5 scores all between 0 and 1 which 
+# summed to 1 - essentially each score represented how much the individual 
+# belonged to each ancestry. In this way we performed a deconvolution of the
+# individuals based on the ancestry, obtaining compositional data for each 
+# individual. 
 
 
 ### COMPOSITION OF INDIVIDUALS - prototype ###

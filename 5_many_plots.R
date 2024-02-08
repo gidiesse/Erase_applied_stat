@@ -1,4 +1,5 @@
-# This is the file where we made most of the plots used to represent our data on the poster 
+# many_plots: This is the file where we made most of the plots used to represent 
+# our data on the poster
 
 # loading the required packages
 library(cowplot)      ## To work with ggpplot

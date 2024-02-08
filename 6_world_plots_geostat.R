@@ -1,5 +1,5 @@
-# This is the file we used to make the plots where we plotted our observations on top of maps
-# from google maps
+# world_plots: This is the file we used to make the plots where we plotted our 
+# observations on top of maps from google maps
 
 # loading the required packages
 library(ggplot2)
